@@ -1,51 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 23:34:50 by fralaiav          #+#    #+#             */
-/*   Updated: 2026/02/13 20:00:05 by fralaiav         ###   ########.fr       */
+/*   Created: 2026/02/06 18:17:55 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/10 16:31:32 by fralaiav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "libft.h"
 
-static int	num_len(long n)
+void	ft_putendl_fd(char *s, int fd)
 {
-	int	len;
-
-	len = (n <= 0);
-	while (n)
+	if (fd > 0 && s)
 	{
-		n /= 10;
-		len++;
+		ft_putstr_fd(s, fd);
+		write(fd, "\n", 1);
 	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*res;
-	long	nb;
-	int		len;
-
-	nb = n;
-	len = num_len(nb);
-	res = malloc(len + 1);
-	if (!res)
-		return (NULL);
-	res[len] = '\0';
-	if (nb < 0)
-	{
-		res[0] = '-';
-		nb = -nb;
-	}
-	while (len-- > (n < 0))
-	{
-		res[len] = (nb % 10) + '0';
-		nb /= 10;
-	}
-	return (res);
 }

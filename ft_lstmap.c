@@ -1,51 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 23:34:50 by fralaiav          #+#    #+#             */
-/*   Updated: 2026/02/13 20:00:05 by fralaiav         ###   ########.fr       */
+/*   Created: 2026/02/13 00:09:24 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/13 00:09:27 by fralaiav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	num_len(long n)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int	len;
+	t_list	*new_list;
+	t_list	*new_node;
+	void	*new_content;
 
-	len = (n <= 0);
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*res;
-	long	nb;
-	int		len;
-
-	nb = n;
-	len = num_len(nb);
-	res = malloc(len + 1);
-	if (!res)
+	if (!lst || !f || !del)
 		return (NULL);
-	res[len] = '\0';
-	if (nb < 0)
+	new_list = NULL;
+	while (lst)
 	{
-		res[0] = '-';
-		nb = -nb;
+		new_content = f(lst->content);
+		new_node = ft_lstnew(new_content);
+		if (!new_node)
+		{
+			del(new_content);
+			ft_lstclear(&new_list, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&new_list, new_node);
+		lst = lst->next;
 	}
-	while (len-- > (n < 0))
-	{
-		res[len] = (nb % 10) + '0';
-		nb /= 10;
-	}
-	return (res);
+	return (new_list);
 }

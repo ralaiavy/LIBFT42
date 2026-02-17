@@ -1,8 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/03 22:03:24 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/10 16:11:05 by fralaiav         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "libft.h"
+
 static int	count_words(char const *s, char c)
 {
-	int	count = 0;
-	int	i = 0;
+	int	count;
+	int	i;
 
+	count = 0;
+	i = 0;
 	while (s[i])
 	{
 		while (s[i] && s[i] == c)
@@ -22,18 +37,12 @@ static void	free_all(char **tab, int i)
 	free(tab);
 }
 
-char	**ft_split(char const *s, char c)
+static int	str_sub(char const *s, char **tab, char c)
 {
-	char	**tab;
-	int		i = 0;
-	int		start;
-	int		word;
+	int	i;
+	int	start;
 
-	if (!s)
-		return (NULL);
-	tab = malloc(sizeof(char *) * (count_words(s, c) + 1));
-	if (!tab)
-		return (NULL);
+	i = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
@@ -45,11 +54,30 @@ char	**ft_split(char const *s, char c)
 				start++;
 			tab[i] = ft_substr(s, 0, start);
 			if (!tab[i])
-				return (free_all(tab, i - 1), NULL);
+			{
+				free_all(tab, i - 1);
+				return (-1);
+			}
 			i++;
 			s += start;
 		}
 	}
-	tab[i] = NULL;
+	return (i);
+}
+
+char	**ft_split(char const *s, char c)
+{
+	char		**tab;
+	int			last_index;
+
+	if (!s)
+		return (NULL);
+	tab = malloc(sizeof(char *) * (count_words(s, c) + 1));
+	if (!tab)
+		return (NULL);
+	last_index = str_sub(s, tab, c);
+	if (last_index == -1)
+		return (NULL);
+	tab[last_index] = NULL;
 	return (tab);
 }

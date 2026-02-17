@@ -1,51 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 23:34:50 by fralaiav          #+#    #+#             */
-/*   Updated: 2026/02/13 20:00:05 by fralaiav         ###   ########.fr       */
+/*   Created: 2026/02/12 21:04:33 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/15 01:06:16 by fralaiav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	num_len(long n)
+t_list	*ft_lstlast(t_list *lst)
 {
-	int	len;
-
-	len = (n <= 0);
-	while (n)
-	{
-		n /= 10;
-		len++;
-	}
-	return (len);
-}
-
-char	*ft_itoa(int n)
-{
-	char	*res;
-	long	nb;
-	int		len;
-
-	nb = n;
-	len = num_len(nb);
-	res = malloc(len + 1);
-	if (!res)
+	if (!lst)
 		return (NULL);
-	res[len] = '\0';
-	if (nb < 0)
-	{
-		res[0] = '-';
-		nb = -nb;
-	}
-	while (len-- > (n < 0))
-	{
-		res[len] = (nb % 10) + '0';
-		nb /= 10;
-	}
-	return (res);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

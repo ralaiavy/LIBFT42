@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 01:20:42 by fralaiav          #+#    #+#             */
-/*   Updated: 2026/02/07 10:11:53 by fralaiav         ###   ########.fr       */
+/*   Created: 2026/02/04 02:57:18 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/13 20:03:45 by fralaiav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_toupper(int c)
 {
-	size_t			i;
-	unsigned char	*p1;
-	unsigned char	*p2;
-
-	p1 = (unsigned char *)s1;
-	p2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
-	{
-		if (p1[i] != p2[i])
-			return (p1[i] - p2[i]);
-		i++;
-	}
-	return (0);
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
 }

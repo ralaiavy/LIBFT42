@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fralaiav <fralaiav@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/27 01:20:42 by fralaiav          #+#    #+#             */
-/*   Updated: 2026/02/07 10:11:53 by fralaiav         ###   ########.fr       */
+/*   Created: 2026/01/20 09:53:07 by fralaiav          #+#    #+#             */
+/*   Updated: 2026/02/13 20:00:45 by fralaiav         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_isascii(int a)
 {
-	size_t			i;
-	unsigned char	*p1;
-	unsigned char	*p2;
-
-	p1 = (unsigned char *)s1;
-	p2 = (unsigned char *)s2;
-	i = 0;
-	while (i < n)
-	{
-		if (p1[i] != p2[i])
-			return (p1[i] - p2[i]);
-		i++;
-	}
-	return (0);
+	if ((a >= 0 && a <= 127))
+		return (1);
+	else
+		return (0);
 }
